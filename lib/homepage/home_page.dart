@@ -93,8 +93,8 @@ class _HomePageState extends State<HomePage>
       Circle(
         circleId: CircleId(id),
         center: LatLng(latitude, longitude),
-        radius: 500,
-        fillColor: Colors.purple.withOpacity(0.6),
+        radius: 100,
+        fillColor: Colors.green.withOpacity(0.6),
         strokeColor: Colors.transparent,
       ),
     );

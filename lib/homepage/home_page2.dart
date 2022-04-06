@@ -96,7 +96,7 @@ class _HomePage2State extends State<HomePage2>
         circleId: CircleId(id),
         center: LatLng(latitude, longitude),
         radius: 100,
-        fillColor: Colors.purple.withOpacity(0.6),
+        fillColor: Colors.green.withOpacity(0.6),
         strokeColor: Colors.transparent,
       ),
     );
