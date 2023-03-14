@@ -109,7 +109,7 @@ class _NgoDonationsRequestsState extends State<NgoDonationsRequests> {
     super.initState();
 
     controller = ScrollController()..addListener(_scrollListener);
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       provider =
           Provider.of<DonationRequestsCardProvider>(context, listen: false);
     });

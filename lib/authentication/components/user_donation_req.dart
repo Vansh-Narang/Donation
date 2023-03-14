@@ -22,7 +22,7 @@ class _AllDonationRequestsState extends State<AllDonationRequests> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       provider =
           Provider.of<DonationRequestsCardProvider>(context, listen: false);
     });
