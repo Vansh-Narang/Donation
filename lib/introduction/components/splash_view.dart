@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -14,7 +16,7 @@ class SplashView extends StatefulWidget {
 class _SplashViewState extends State<SplashView> {
   @override
   Widget build(BuildContext context) {
-    final _introductionanimation =
+    final introductionanimation =
         Tween<Offset>(begin: const Offset(0, 0), end: const Offset(0.0, -1.0))
             .animate(
       CurvedAnimation(
@@ -27,7 +29,7 @@ class _SplashViewState extends State<SplashView> {
       ),
     );
     return SlideTransition(
-      position: _introductionanimation,
+      position: introductionanimation,
       child: SingleChildScrollView(
         child: Column(
           children: [

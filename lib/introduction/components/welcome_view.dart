@@ -8,7 +8,7 @@ class WelcomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _firstHalfAnimation =
+    final firstHalfAnimation =
         Tween<Offset>(begin: const Offset(1, 0), end: const Offset(0, 0))
             .animate(
       CurvedAnimation(
@@ -20,7 +20,7 @@ class WelcomeView extends StatelessWidget {
         ),
       ),
     );
-    final _secondHalfAnimation =
+    final secondHalfAnimation =
         Tween<Offset>(begin: const Offset(0, 0), end: const Offset(-1, 0))
             .animate(
       CurvedAnimation(
@@ -33,7 +33,7 @@ class WelcomeView extends StatelessWidget {
       ),
     );
 
-    final _welcomeFirstHalfAnimation =
+    final welcomeFirstHalfAnimation =
         Tween<Offset>(begin: const Offset(2, 0), end: const Offset(0, 0))
             .animate(CurvedAnimation(
       parent: animationController,
@@ -44,7 +44,7 @@ class WelcomeView extends StatelessWidget {
       ),
     ));
 
-    final _welcomeImageAnimation =
+    final welcomeImageAnimation =
         Tween<Offset>(begin: const Offset(4, 0), end: const Offset(0, 0))
             .animate(CurvedAnimation(
       parent: animationController,
@@ -55,16 +55,16 @@ class WelcomeView extends StatelessWidget {
       ),
     ));
     return SlideTransition(
-      position: _firstHalfAnimation,
+      position: firstHalfAnimation,
       child: SlideTransition(
-        position: _secondHalfAnimation,
+        position: secondHalfAnimation,
         child: Padding(
           padding: const EdgeInsets.only(bottom: 100),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SlideTransition(
-                position: _welcomeImageAnimation,
+                position: welcomeImageAnimation,
                 child: Container(
                     constraints:
                         const BoxConstraints(maxWidth: 350, maxHeight: 350),
@@ -72,7 +72,7 @@ class WelcomeView extends StatelessWidget {
                         'assets/introduction_animation/agree.svg')),
               ),
               SlideTransition(
-                position: _welcomeFirstHalfAnimation,
+                position: welcomeFirstHalfAnimation,
                 child: const Text(
                   "Welcome ",
                   style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),

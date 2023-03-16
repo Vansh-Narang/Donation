@@ -10,13 +10,7 @@ enum ImageOnTapAvailability{
 }
 class ChatScreenProvider extends ChangeNotifier{
   ImageViewState _imageViewState = ImageViewState.imageIdle;
-  ImageOnTapAvailability _imageOnTapAvailability = ImageOnTapAvailability.no;
-
-  ImageOnTapAvailability get imageOnTapAvailability => _imageOnTapAvailability;
-
-  set imageOnTapAvailability(ImageOnTapAvailability value) {
-    _imageOnTapAvailability = value;
-  }
+  ImageOnTapAvailability imageOnTapAvailability = ImageOnTapAvailability.no;
 
   ImageViewState get imageViewState => _imageViewState;
 

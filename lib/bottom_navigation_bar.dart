@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:ngo/apptheme.dart';
 import 'package:ngo/flow/to_ngo_profile.dart';
@@ -66,10 +68,10 @@ class _ShowBottomNavigationBarState extends State<ShowBottomNavigationBar> {
       body:
           Consumer<BottomNavigationProvider>(builder: (context, value, child) {
         return PageView(
-          children:
-              widget.userstate == userType.donor ? currentTab : currentTab2,
           physics: const NeverScrollableScrollPhysics(),
           controller: _pageController,
+          children:
+              widget.userstate == userType.donor ? currentTab : currentTab2,
         );
       }),
       bottomNavigationBar: Consumer<BottomNavigationProvider>(

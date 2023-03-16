@@ -9,7 +9,7 @@ class CareView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _firstHalfAnimation =
+    final firstHalfAnimation =
         Tween<Offset>(begin: const Offset(1, 0), end: const Offset(0, 0))
             .animate(CurvedAnimation(
       parent: animationController,
@@ -19,7 +19,7 @@ class CareView extends StatelessWidget {
         curve: Curves.fastOutSlowIn,
       ),
     ));
-    final _secondHalfAnimation =
+    final secondHalfAnimation =
         Tween<Offset>(begin: const Offset(0, 0), end: const Offset(-1, 0))
             .animate(CurvedAnimation(
       parent: animationController,
@@ -29,7 +29,7 @@ class CareView extends StatelessWidget {
         curve: Curves.fastOutSlowIn,
       ),
     ));
-    final _relaxFirstHalfAnimation =
+    final relaxFirstHalfAnimation =
         Tween<Offset>(begin: const Offset(2, 0), end: const Offset(0, 0))
             .animate(CurvedAnimation(
       parent: animationController,
@@ -39,7 +39,7 @@ class CareView extends StatelessWidget {
         curve: Curves.fastOutSlowIn,
       ),
     ));
-    final _relaxSecondHalfAnimation =
+    final relaxSecondHalfAnimation =
         Tween<Offset>(begin: const Offset(0, 0), end: const Offset(-2, 0))
             .animate(CurvedAnimation(
       parent: animationController,
@@ -50,7 +50,7 @@ class CareView extends StatelessWidget {
       ),
     ));
 
-    final _imageFirstHalfAnimation =
+    final imageFirstHalfAnimation =
         Tween<Offset>(begin: const Offset(4, 0), end: const Offset(0, 0))
             .animate(CurvedAnimation(
       parent: animationController,
@@ -60,7 +60,7 @@ class CareView extends StatelessWidget {
         curve: Curves.fastOutSlowIn,
       ),
     ));
-    final _imageSecondHalfAnimation =
+    final imageSecondHalfAnimation =
         Tween<Offset>(begin: const Offset(0, 0), end: const Offset(-4, 0))
             .animate(CurvedAnimation(
       parent: animationController,
@@ -72,18 +72,18 @@ class CareView extends StatelessWidget {
     ));
 
     return SlideTransition(
-      position: _firstHalfAnimation,
+      position: firstHalfAnimation,
       child: SlideTransition(
-        position: _secondHalfAnimation,
+        position: secondHalfAnimation,
         child: Padding(
           padding: const EdgeInsets.only(bottom: 100),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SlideTransition(
-                position: _imageFirstHalfAnimation,
+                position: imageFirstHalfAnimation,
                 child: SlideTransition(
-                  position: _imageSecondHalfAnimation,
+                  position: imageSecondHalfAnimation,
                   child: Container(
                     constraints:
                         const BoxConstraints(maxWidth: 300, maxHeight: 280),
@@ -94,9 +94,9 @@ class CareView extends StatelessWidget {
                 ),
               ),
               SlideTransition(
-                position: _relaxFirstHalfAnimation,
+                position: relaxFirstHalfAnimation,
                 child: SlideTransition(
-                  position: _relaxSecondHalfAnimation,
+                  position: relaxSecondHalfAnimation,
                   child: const Text(
                     "Donation Requests",
                     style:

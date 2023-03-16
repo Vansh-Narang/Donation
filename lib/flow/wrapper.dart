@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api, camel_case_types
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ngo/flow/stateChecker.dart';

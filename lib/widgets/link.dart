@@ -5,7 +5,7 @@ class Link extends StatelessWidget {
   final String name;
   final Function? handler;
 
-  Link(this.name, this.handler);
+  const Link(this.name, this.handler, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

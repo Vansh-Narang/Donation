@@ -4,9 +4,9 @@ import 'package:ngo/apptheme.dart';
 import 'cache_image_message.dart';
 
 class MessageBubble extends StatelessWidget {
-  const MessageBubble(this.msg, this.isMe, this.type
+  const MessageBubble(this.msg, this.isMe, this.type, {Key? key}
       // this.key
-      );
+      ) : super(key: key);
   final String msg;
   final bool isMe;
   final String type;

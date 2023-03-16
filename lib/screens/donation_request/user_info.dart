@@ -1,4 +1,7 @@
+// ignore_for_file: unused_field, library_private_types_in_public_api, depend_on_referenced_packages
+
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -19,7 +22,7 @@ class UserInfo extends StatefulWidget {
   // final List<File> images;
   // final List<Map<String,dynamic>> items;
 
-  UserInfo({Key? key}) : super(key: key);
+  const UserInfo({Key? key}) : super(key: key);
 
   @override
   _UserInfoState createState() => _UserInfoState();
@@ -96,9 +99,7 @@ class _UserInfoState extends State<UserInfo> {
       lastDate: DateTime.now().add(const Duration(days: 7)),
     ))!;
 
-    if (date != null) {
-      _dateController.text = '${date.day}/${date.month}/${date.year}';
-    }
+    _dateController.text = '${date.day}/${date.month}/${date.year}';
   }
 
   void getTime() async {
@@ -122,7 +123,9 @@ class _UserInfoState extends State<UserInfo> {
     super.initState();
     fetchUserData().whenComplete(() => setState(() => {}));
     getLocation();
-    print('getting in init');
+    if (kDebugMode) {
+      print('getting in init');
+    }
     // getLocation();
   }
 
@@ -214,6 +217,7 @@ class _UserInfoState extends State<UserInfo> {
                     if (text != null && (text.length < 10 || text.isEmpty)) {
                       return 'Enter a valid mobile number';
                     }
+                    return null;
                   },
                   onChanged: (text) {
                     _formKey.currentState!.validate();
@@ -325,33 +329,33 @@ class _UserInfoState extends State<UserInfo> {
               if (_emailController.text.isEmpty) {
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   content: const Text('Enter the email address.'),
-                  backgroundColor: Theme.of(context).errorColor,
+                  backgroundColor: Theme.of(context).colorScheme.error,
                 ));
               } else if (_phoneController.text.isEmpty) {
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   content: const Text('Enter the phone number.'),
-                  backgroundColor: Theme.of(context).errorColor,
+                  backgroundColor: Theme.of(context).colorScheme.error,
                 ));
               } else if (!_formKey.currentState!.validate()) {
                 // on success, notify the parent widget
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   content: const Text('Check your phone number again.'),
-                  backgroundColor: Theme.of(context).errorColor,
+                  backgroundColor: Theme.of(context).colorScheme.error,
                 ));
               } else if (_dateController.text.isEmpty) {
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   content: const Text('Enter the pickup date.'),
-                  backgroundColor: Theme.of(context).errorColor,
+                  backgroundColor: Theme.of(context).colorScheme.error,
                 ));
               } else if (_timeController.text.isEmpty) {
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   content: const Text('Enter the pickup time.'),
-                  backgroundColor: Theme.of(context).errorColor,
+                  backgroundColor: Theme.of(context).colorScheme.error,
                 ));
               } else if (_locationController.text.isEmpty) {
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   content: const Text('Enter the pickup location.'),
-                  backgroundColor: Theme.of(context).errorColor,
+                  backgroundColor: Theme.of(context).colorScheme.error,
                 ));
               } else {
                 Donation donation = Donation(

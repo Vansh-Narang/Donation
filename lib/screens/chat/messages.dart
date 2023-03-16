@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api, prefer_typing_uninitialized_variables
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -5,7 +7,7 @@ import 'message_bubble.dart';
 
 class Messages extends StatefulWidget {
   // const Messages({Key? key}) : super(key: key);
-  Messages(this.chatDocumentId, this.currentUserUid);
+  const Messages(this.chatDocumentId, this.currentUserUid, {Key? key}) : super(key: key);
   final chatDocumentId;
   final currentUserUid;
   @override
@@ -26,7 +28,7 @@ class _MessagesState extends State<Messages> {
         if (snapshot.hasError) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text("${snapshot.error.toString()}. Retrying..."),
-            backgroundColor: Theme.of(context).errorColor,
+            backgroundColor: Theme.of(context).colorScheme.error,
           ));
         }
 
@@ -39,6 +41,7 @@ class _MessagesState extends State<Messages> {
         // Map<String, dynamic> data;
         final chatDocs = snapshot.data!.docs;
         if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+          // ignore: todo
           //TODO: To check in what case there would be no data in snapshot
           return const Padding(
             padding: EdgeInsets.all(10.0),
@@ -72,6 +75,7 @@ class _MessagesState extends State<Messages> {
         //     return MessageBubble(
         //       document['msg'],
         //       document['uid'] == widget.currentUserUid,
+        // ignore: todo
         //       // key:ValueKey(chatDocs.) // TODO: suggest to add key
         //     );
         //   }).toList(),

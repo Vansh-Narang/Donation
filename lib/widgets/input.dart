@@ -10,11 +10,11 @@ class InputField extends StatelessWidget {
   final List<TextInputFormatter>? inputFormatters;
   final bool readOnlyField;
 
-  InputField(this.fieldController, this.textType,
-      {this.suffix,
+  const InputField(this.fieldController, this.textType,
+      {Key? key, this.suffix,
       this.textAlignVertical,
       this.inputFormatters,
-      this.readOnlyField = false});
+      this.readOnlyField = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +48,7 @@ class InputField extends StatelessWidget {
           if (text != null && (text.length < 10 || text.isEmpty)) {
             return 'Enter a valid mobile number';
           }
+          return null;
         },
       ),
     );
@@ -58,7 +59,7 @@ class InputPassField extends StatefulWidget {
   final TextEditingController fieldController;
   final TextInputType textType;
 
-  InputPassField(this.fieldController, this.textType);
+  const InputPassField(this.fieldController, this.textType, {Key? key}) : super(key: key);
 
   @override
   State<InputPassField> createState() => _InputPassFieldState();

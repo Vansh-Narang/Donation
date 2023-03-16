@@ -1,4 +1,7 @@
+// ignore_for_file: use_build_context_synchronously, file_names
+
 import 'package:after_layout/after_layout.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ngo/bottom_navigation_bar.dart';
@@ -17,9 +20,15 @@ class StateCheckerState extends State<StateChecker>
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final String determine = prefs.getString('userType')!;
     final String? name = prefs.getString('Ngo');
-    print('--------------------------------------');
-    print(determine);
-    print(name);
+    if (kDebugMode) {
+      print('--------------------------------------');
+    }
+    if (kDebugMode) {
+      print(determine);
+    }
+    if (kDebugMode) {
+      print(name);
+    }
 
     if (determine == 'Donor') {
       return Navigator.pushReplacement(

@@ -34,6 +34,7 @@ class CacheImageMessage extends StatelessWidget {
                       bottomLeft: Radius.circular(12),
                       bottomRight: Radius.circular(12)),
             ),
+            // ignore: todo
             // width: 140, //TODO: Need to check for long messages
             padding: const EdgeInsets.all(10),
             constraints: BoxConstraints(
@@ -46,6 +47,7 @@ class CacheImageMessage extends StatelessWidget {
                   const Center(child: CircularProgressIndicator()),
               errorWidget: (context, string, dynamic) {
                 value.imageOnTapAvailability = ImageOnTapAvailability
+                    // ignore: todo
                     .no; //TODO: Check the zooming capability
                 return const Text(
                     "There was some error in fetching the image! ☹️");

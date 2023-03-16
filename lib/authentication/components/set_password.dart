@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -209,10 +211,10 @@ class _SetPasswordState extends State<SetPassword> {
                             (value) async {
                               FocusManager.instance.primaryFocus?.unfocus();
                               if (value != null) {
-                                final _prefs =
+                                final prefs =
                                     await SharedPreferences.getInstance();
                                 final isSet =
-                                    await _prefs.setString('userType', 'Donor');
+                                    await prefs.setString('userType', 'Donor');
                                 isSet
                                     ? Navigator.pushReplacement(
                                         context,
@@ -227,7 +229,7 @@ class _SetPasswordState extends State<SetPassword> {
                                         .showSnackBar(
                                         SnackBar(
                                           backgroundColor:
-                                              Theme.of(context).errorColor,
+                                              Theme.of(context).colorScheme.error,
                                           content: const Text(
                                               'Shared Preferences: UserType error'),
                                         ),
@@ -238,14 +240,14 @@ class _SetPasswordState extends State<SetPassword> {
                         }
                       },
                       color: Colors.black,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5)),
                       child: Text(
                         _authMode == AuthMode.signup
                             ? "CREATE ACCOUNT"
                             : "Login",
                         style: const TextStyle(color: Colors.white),
                       ),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5)),
                     )
                   ],
                 ),

@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_import, prefer_typing_uninitialized_variables
+
 import 'dart:async';
 import 'dart:math';
 import 'dart:typed_data';
@@ -612,6 +614,7 @@ class _HomePageState extends State<HomePage>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       body: Stack(
         alignment: Alignment.topCenter,
@@ -742,11 +745,11 @@ class _HomePageState extends State<HomePage>
                                 suggestionsDecoration: const BoxDecoration(
                                   color: Colors.white,
                                 ),
-                                suggestions: suggestions,
-                                onTap: (x) {
-                                  FocusManager.instance.primaryFocus?.unfocus();
-                                  return searchandanimate(x.searchKey);
-                                }),
+                                suggestions: suggestions),
+                                // onTap: (x) {
+                                //   FocusManager.instance.primaryFocus?.unfocus();
+                                //   return searchandanimate(x.searchKey);
+                                // }),
                           )
                         ],
                       ),
@@ -766,10 +769,10 @@ class _HomePageState extends State<HomePage>
                 onPressed: () {
                   MapsLauncher.launchCoordinates(endLat, endLng, place);
                 },
+                backgroundColor: Colors.green[600],
                 child: const Icon(
                   (Icons.directions_run_rounded),
                 ),
-                backgroundColor: Colors.green[600],
               ),
             ),
           if (selected)
@@ -777,12 +780,12 @@ class _HomePageState extends State<HomePage>
               margin: const EdgeInsets.all(10),
               child: FloatingActionButton(
                 heroTag: "btn3",
-                child: const Icon(Icons.location_pin),
                 backgroundColor: Colors.amber,
                 onPressed: () => updateCameraLocation(
                     _initialCameraPosition.target,
                     destination,
                     _googleMapController!),
+                child: const Icon(Icons.location_pin),
               ),
             ),
           Container(

@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -109,7 +111,7 @@ class _NgoDonationsRequestsState extends State<NgoDonationsRequests> {
     super.initState();
 
     controller = ScrollController()..addListener(_scrollListener);
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       provider =
           Provider.of<DonationRequestsCardProvider>(context, listen: false);
     });
@@ -219,6 +221,7 @@ class _NgoDonationsRequestsState extends State<NgoDonationsRequests> {
                             duration: const Duration(milliseconds: 200),
                             curve: Curves.bounceInOut,
                             child: Visibility(
+                              visible: value.scrollVisibility,
                               child: NewRequests(
                                 timeOfInitialRequest: DateTime.now(),
                                 controller: controller,
@@ -226,7 +229,6 @@ class _NgoDonationsRequestsState extends State<NgoDonationsRequests> {
                                   setState(() {});
                                 },
                               ),
-                              visible: value.scrollVisibility,
                             ),
                           );
                         },

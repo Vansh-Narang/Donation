@@ -1,5 +1,8 @@
+// ignore_for_file: depend_on_referenced_packages, no_logic_in_create_state, must_be_immutable
+
 import 'dart:math';
 import 'dart:ui';
+import 'package:flutter/foundation.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -114,11 +117,11 @@ class _RequestCardViewState extends State<RequestCardView> {
                               children: [
                                 const CircleAvatar(
                                   backgroundColor: Colors.white,
+                                  radius: 10,
                                   child: Icon(
                                     Icons.food_bank,
                                     color: Colors.black,
                                   ),
-                                  radius: 10,
                                   // backgroundColor: Colors.grey,
                                 ),
                                 Text(
@@ -288,13 +291,17 @@ class _RequestCardViewState extends State<RequestCardView> {
           });
       // Navigator.pop(context);
     }).catchError((err) {
-      print('...... ${err.toString()} %^^^^^^^_____________}');
+      if (kDebugMode) {
+        print('...... ${err.toString()} %^^^^^^^_____________}');
+      }
       Navigator.pop(context);
-      print("@@@@...............");
+      if (kDebugMode) {
+        print("@@@@...............");
+      }
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         duration: const Duration(milliseconds: 1300),
         content: const Text('There was some error in submitting your request'),
-        backgroundColor: Theme.of(context).errorColor,
+        backgroundColor: Theme.of(context).colorScheme.error,
       ));
       // showDialog(barrierDismissible:false,context: context, builder: (BuildContext context){
       //   return BackdropFilter(
@@ -307,6 +314,7 @@ class _RequestCardViewState extends State<RequestCardView> {
       //         child: Column(
       //           mainAxisSize: MainAxisSize.min,
       //           children: [
+      // ignore: todo
       //             //TODO: Attribute: <a href="https://www.flaticon.com/free-icons/sad" title="sad icons">Sad icons created by Md Tanvirul Haque - Flaticon</a>
       //               Padding(
       //                 padding: const EdgeInsets.all(20.0),

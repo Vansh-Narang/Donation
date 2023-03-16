@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -57,7 +59,7 @@ class _VerifyNgoState extends State<VerifyNgo> {
 
   @override
   Widget build(BuildContext context) {
-    final _size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: AppTheme.background,
       appBar: AppBar(
@@ -113,7 +115,7 @@ class _VerifyNgoState extends State<VerifyNgo> {
                         ),
                         const SizedBox(width: 10),
                         SizedBox(
-                          width: _size.width / 1.5,
+                          width: size.width / 1.5,
                           child: Text(
                             widget.ngoName,
                             style: const TextStyle(
@@ -154,11 +156,9 @@ class _VerifyNgoState extends State<VerifyNgo> {
                         User? user =
                             await verifyotp(_otp, verificationIDReceived);
                         if (user != null) {
-                          final _prefs = await SharedPreferences.getInstance();
+                          final prefs = await SharedPreferences.getInstance();
                           final isSet =
-                              await _prefs.setString('userType', 'NGO');
-                          final ngoName =
-                              await _prefs.setString('Ngo', widget.ngoName);
+                              await prefs.setString('userType', 'NGO');
                           isSet
                               ? Navigator.pushReplacement(
                                   context,
@@ -172,7 +172,7 @@ class _VerifyNgoState extends State<VerifyNgo> {
                               : ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
                                     backgroundColor:
-                                        Theme.of(context).errorColor,
+                                        Theme.of(context).colorScheme.error,
                                     content: const Text(
                                         'Shared Preferences: UserType error'),
                                   ),
@@ -182,12 +182,12 @@ class _VerifyNgoState extends State<VerifyNgo> {
                         }
                       },
                       color: Colors.black,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                      ),
                       child: const Text(
                         "Verify",
                         style: TextStyle(color: Colors.white),
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5),
                       ),
                     )
                   ],

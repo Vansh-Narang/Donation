@@ -1,5 +1,8 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ngo/apptheme.dart';
 import '../chat_screen.dart';
@@ -9,7 +12,7 @@ import 'last_send_message.dart';
 class ContactView extends StatelessWidget {
   final Map<String, dynamic> contact;
   final String currentUserUid;
-  ContactView(this.contact, this.currentUserUid);
+  const ContactView(this.contact, this.currentUserUid, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +36,11 @@ class ContactView extends StatelessWidget {
 
         if (snapshot.hasData && snapshot.data!.exists) {
           Map<String, dynamic> ngoData = snapshot.data!.data() as Map<String,
+              // ignore: todo
               dynamic>; //TODO: To check here-- only ngo name is being fetched in futurebuilder
-          print("^^^^--->>  $ngoData");
+          if (kDebugMode) {
+            print("^^^^--->>  $ngoData");
+          }
           return ViewLayout(
               ngoData: ngoData,
               currentUserUid: currentUserUid,
@@ -53,14 +59,14 @@ class ViewLayout extends StatelessWidget {
   final Map<String, dynamic> ngoData;
   final String currentUserUid;
   final Map<String, dynamic> contact;
-  ViewLayout(
-      {required this.ngoData,
+  const ViewLayout(
+      {Key? key, required this.ngoData,
       required this.currentUserUid,
-      required this.contact});
+      required this.contact}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final _size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     // print("####--->>>  ${contact['uid']}");
     return CustomTile(
       mini: false,
@@ -74,7 +80,7 @@ class ViewLayout extends StatelessWidget {
             ),
           )),
       title: SizedBox(
-        width: _size.width / 1.4,
+        width: size.width / 1.4,
         child: Text(
           (ngoData != null ? ngoData['name'] : null) != null
               ? ngoData['name']

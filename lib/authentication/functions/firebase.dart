@@ -1,3 +1,5 @@
+// ignore_for_file: body_might_complete_normally_catch_error
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -43,8 +45,8 @@ Future<User?> login(String email, String password) async {
 Future logout() async {
   try {
     await _auth.signOut();
-    final _prefs = await SharedPreferences.getInstance();
-    await _prefs.remove('userType');
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('userType');
   } catch (error) {
     Fluttertoast.showToast(msg: "Failed to logout. Try again after sometime");
   }
@@ -68,8 +70,8 @@ Future<User?> getEmail(
 
 // Reset Password
 Future<void> resetPassword(String email) async {
-  FirebaseAuth _auth = FirebaseAuth.instance;
-  await _auth.sendPasswordResetEmail(email: email);
+  FirebaseAuth auth = FirebaseAuth.instance;
+  await auth.sendPasswordResetEmail(email: email);
 }
 
 Future<Map<String, dynamic>> getUserInfo(String uid) async {

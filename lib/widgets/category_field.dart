@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:ngo/apptheme.dart';
@@ -143,6 +145,7 @@ class _CategoryFieldState extends State<CategoryField> {
           } else if (text.isNotEmpty) {
             manager.foodControllerIsEmpty = false;
           }
+          return null;
         },
         cursorColor: Colors.black,
         decoration: const InputDecoration(
@@ -180,6 +183,7 @@ class _CategoryFieldState extends State<CategoryField> {
           } else if (text.isNotEmpty) {
             manager.quantityControllerIsEmpty = false;
           }
+          return null;
         },
         keyboardType: TextInputType.number,
         inputFormatters: <TextInputFormatter>[

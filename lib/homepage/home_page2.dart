@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously, unnecessary_import, prefer_typing_uninitialized_variables
+
 import 'dart:async';
 import 'dart:math';
 import 'dart:typed_data';
@@ -764,7 +766,7 @@ class _HomePage2State extends State<HomePage2>
 
   @override
   Widget build(BuildContext context) {
-    final _size = MediaQuery.of(context).size;
+    super.build(context);
     return Scaffold(
       body: Stack(
         alignment: Alignment.topCenter,
@@ -859,8 +861,8 @@ class _HomePage2State extends State<HomePage2>
                       padding: const EdgeInsets.symmetric(horizontal: 21),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          const CircleAvatar(
+                        children: const [
+                          CircleAvatar(
                             foregroundColor: Colors.black,
                             backgroundColor: Colors.white,
                             child: Icon(
@@ -868,41 +870,41 @@ class _HomePage2State extends State<HomePage2>
                               size: 28,
                             ),
                           ),
-                          Expanded(
-                            flex: 2,
-                            child: SearchField(
-                                hasOverlay: false,
-                                suggestionItemDecoration: const BoxDecoration(
-                                  color: Colors.white,
-                                ),
-                                hint: 'Search For NGO / Organisation',
-                                searchStyle: const TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.black,
-                                ),
-                                searchInputDecoration: const InputDecoration(
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Colors.transparent,
-                                    ),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Colors.transparent,
-                                    ),
-                                  ),
-                                ),
-                                maxSuggestionsInViewPort: 4,
-                                itemHeight: 50,
-                                suggestionsDecoration: const BoxDecoration(
-                                  color: Colors.white,
-                                ),
-                                suggestions: suggestions,
-                                onTap: (x) {
-                                  FocusManager.instance.primaryFocus?.unfocus();
-                                  return searchandanimate(x.searchKey);
-                                }),
-                          )
+                          // Expanded(
+                          //   flex: 2,
+                          //   child: SearchField(
+                          //       hasOverlay: false,
+                          //       suggestionItemDecoration: const BoxDecoration(
+                          //         color: Colors.white,
+                          //       ),
+                          //       hint: 'Search For NGO / Organisation',
+                          //       searchStyle: const TextStyle(
+                          //         fontSize: 16,
+                          //         color: Colors.black,
+                          //       ),
+                          //       searchInputDecoration: const InputDecoration(
+                          //         enabledBorder: OutlineInputBorder(
+                          //           borderSide: BorderSide(
+                          //             color: Colors.transparent,
+                          //           ),
+                          //         ),
+                          //         focusedBorder: OutlineInputBorder(
+                          //           borderSide: BorderSide(
+                          //             color: Colors.transparent,
+                          //           ),
+                          //         ),
+                          //       ),
+                          //       maxSuggestionsInViewPort: 4,
+                          //       itemHeight: 50,
+                          //       suggestionsDecoration: const BoxDecoration(
+                          //         color: Colors.white,
+                          //       ),
+                                // suggestions: suggestions,
+                                // onTap: (x) {
+                                //   FocusManager.instance.primaryFocus?.unfocus();
+                                //   return searchandanimate(x.searchKey);
+                                // }),
+                          
                         ],
                       ),
                     ),
@@ -921,10 +923,10 @@ class _HomePage2State extends State<HomePage2>
                 onPressed: () {
                   MapsLauncher.launchCoordinates(endLat, endLng, place);
                 },
+                backgroundColor: Colors.green[600],
                 child: const Icon(
                   (Icons.directions_run_rounded),
                 ),
-                backgroundColor: Colors.green[600],
               ),
             ),
           if (selected)
@@ -932,12 +934,12 @@ class _HomePage2State extends State<HomePage2>
               margin: const EdgeInsets.all(10),
               child: FloatingActionButton(
                 heroTag: "btn3",
-                child: const Icon(Icons.location_pin),
                 backgroundColor: Colors.amber,
                 onPressed: () => updateCameraLocation(
                     _initialCameraPosition.target,
                     destination,
                     _googleMapController!),
+                child: const Icon(Icons.location_pin),
               ),
             ),
           Container(

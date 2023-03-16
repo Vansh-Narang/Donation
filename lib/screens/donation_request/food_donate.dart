@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api, depend_on_referenced_packages
+
 import 'package:flutter/material.dart';
 import 'package:ngo/models/category_field_modal.dart';
 import 'package:ngo/screens/donation_request/user_info.dart';
@@ -40,7 +42,7 @@ class _FoodDonationState extends State<FoodDonation> {
           const SizedBox(height: 12.0),
           addFieldBtn(manager),
           const SizedBox(height: 12.0),
-          CategoryImages(),
+          const CategoryImages(),
           const SizedBox(height: 10),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -50,25 +52,25 @@ class _FoodDonationState extends State<FoodDonation> {
                   manager.items.isEmpty) {
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   content: const Text('Add item to donate!'),
-                  backgroundColor: Theme.of(context).errorColor,
+                  backgroundColor: Theme.of(context).colorScheme.error,
                 ));
               } else if (manager.foodControllerIsEmpty &&
                   !manager.quantityControllerIsEmpty) {
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   content: const Text('Specify the type of product'),
-                  backgroundColor: Theme.of(context).errorColor,
+                  backgroundColor: Theme.of(context).colorScheme.error,
                 ));
               } else if (!manager.foodControllerIsEmpty &&
                   manager.quantityControllerIsEmpty) {
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   content: const Text('Specify the quantity of product'),
-                  backgroundColor: Theme.of(context).errorColor,
+                  backgroundColor: Theme.of(context).colorScheme.error,
                 ));
               } else {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => UserInfo(),
+                    builder: (context) => const UserInfo(),
                   ),
                 );
               }
@@ -105,19 +107,19 @@ class _FoodDonationState extends State<FoodDonation> {
             manager.quantityControllerIsEmpty) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: const Text('Add item to donate!'),
-            backgroundColor: Theme.of(context).errorColor,
+            backgroundColor: Theme.of(context).colorScheme.error,
           ));
         } else if (manager.foodControllerIsEmpty &&
             !manager.quantityControllerIsEmpty) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: const Text('Specify the type of product'),
-            backgroundColor: Theme.of(context).errorColor,
+            backgroundColor: Theme.of(context).colorScheme.error,
           ));
         } else if (!manager.foodControllerIsEmpty &&
             manager.quantityControllerIsEmpty) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: const Text('Specify the quantity of product'),
-            backgroundColor: Theme.of(context).errorColor,
+            backgroundColor: Theme.of(context).colorScheme.error,
           ));
         } else {
           manager.addItem(

@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -66,7 +68,7 @@ class _VerifyUserState extends State<VerifyUser> {
 
   @override
   Widget build(BuildContext context) {
-    final _size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     return WillPopScope(
       onWillPop: doNotPop,
       child: Scaffold(
@@ -113,8 +115,8 @@ class _VerifyUserState extends State<VerifyUser> {
                             height: 30,
                           ),
                           SizedBox(
-                            height: _size.height / 5,
-                            width: _size.width,
+                            height: size.height / 5,
+                            width: size.width,
                             child: SvgPicture.asset(
                               'assets/authentication/verification_sent.svg',
                             ),
@@ -140,12 +142,12 @@ class _VerifyUserState extends State<VerifyUser> {
                               doNotPop();
                             },
                             color: const Color(0xff132137),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5),
+                            ),
                             child: const Text(
                               "Cancel",
                               style: TextStyle(color: Colors.white),
-                            ),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5),
                             ),
                           ),
                           const SizedBox(

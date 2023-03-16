@@ -1,5 +1,8 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ngo/apptheme.dart';
 
@@ -17,12 +20,14 @@ class _AllUsersChatListState extends State<AllUsersChatList>
     with AutomaticKeepAliveClientMixin<AllUsersChatList> {
   @override
   void initState() {
+    // ignore: todo
     // TODO: implement initState
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     String uid = FirebaseAuth.instance.currentUser!.uid;
     return StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
@@ -71,7 +76,9 @@ class _AllUsersChatListState extends State<AllUsersChatList>
                 itemBuilder: (context, index) {
                   Map<String, dynamic> chatUserListData =
                       docList[index].data() as Map<String, dynamic>;
-                  print("%%%%--->>>>   $chatUserListData");
+                  if (kDebugMode) {
+                    print("%%%%--->>>>   $chatUserListData");
+                  }
                   return ContactView(chatUserListData, uid);
                 },
               ),
@@ -83,6 +90,7 @@ class _AllUsersChatListState extends State<AllUsersChatList>
   }
 
   @override
+  // ignore: todo
   // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
 }

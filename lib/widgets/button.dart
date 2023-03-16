@@ -6,7 +6,7 @@ class Button extends StatelessWidget {
   final String name;
   final Function userMethod;
 
-  Button(this.name, this.userMethod);
+  const Button(this.name, this.userMethod, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

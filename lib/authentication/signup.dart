@@ -143,7 +143,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    final _size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: AppTheme.background,
       appBar: AppBar(
@@ -363,12 +363,12 @@ class _LoginPageState extends State<LoginPage> {
                             }
                           },
                           color: AppTheme.button,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5),
+                          ),
                           child: const Text(
                             "CONTINUE",
                             style: TextStyle(color: Colors.white),
-                          ),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
                           ),
                         ),
                         const SizedBox(
@@ -383,7 +383,7 @@ class _LoginPageState extends State<LoginPage> {
                                   Container(
                                     color: Colors.grey,
                                     height: 2,
-                                    width: _size.width / 3,
+                                    width: size.width / 3,
                                   ),
                                   const SizedBox(width: 10),
                                   const Text(
@@ -396,7 +396,7 @@ class _LoginPageState extends State<LoginPage> {
                                   Container(
                                     color: Colors.grey,
                                     height: 2,
-                                    width: _size.width / 3,
+                                    width: size.width / 3,
                                   ),
                                 ],
                               ),
@@ -406,6 +406,7 @@ class _LoginPageState extends State<LoginPage> {
                               TextFormField(
                                 validator: (value) {
                                   checkFormValidation(value);
+                                  return null;
                                 },
                                 controller: _ngoId,
                                 decoration: InputDecoration(

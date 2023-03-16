@@ -11,7 +11,7 @@ class CustomTile extends StatelessWidget {
   final GestureTapCallback? onTap;
   final GestureLongPressCallback? onLongPress;
 
-  CustomTile({
+  const CustomTile({Key? key, 
     required this.leading,
     required this.title,
     this.icon,
@@ -21,7 +21,7 @@ class CustomTile extends StatelessWidget {
     this.onTap,
     this.onLongPress,
     this.mini = true,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

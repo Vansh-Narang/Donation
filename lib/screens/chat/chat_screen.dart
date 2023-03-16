@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_typing_uninitialized_variables, use_build_context_synchronously, library_private_types_in_public_api
+
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -9,10 +11,10 @@ import 'package:ngo/apptheme.dart';
 import 'messages.dart';
 
 class ChatScreen extends StatefulWidget {
-  ChatScreen(
-      {required this.ngoUid,
+  const ChatScreen(
+      {Key? key, required this.ngoUid,
       required this.ngoName,
-      required this.currentUserUid});
+      required this.currentUserUid}) : super(key: key);
 
   final String ngoUid;
   final String ngoName;
@@ -40,15 +42,15 @@ class _ChatScreenState extends State<ChatScreen> {
           .ref()
           .child('Chat')
           .child('${DateTime.now().microsecondsSinceEpoch}');
-      UploadTask _storageUploadTask = _storageReference.putFile(image);
+      UploadTask storageUploadTask = _storageReference.putFile(image);
 
-      TaskSnapshot snapshot = await _storageUploadTask;
+      TaskSnapshot snapshot = await storageUploadTask;
       String imageURL = await snapshot.ref.getDownloadURL();
       return imageURL;
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: const Text("Sorry! We were unable send your image"),
-        backgroundColor: Theme.of(context).errorColor,
+        backgroundColor: Theme.of(context).colorScheme.error,
       ));
       return null;
     }
@@ -67,7 +69,7 @@ class _ChatScreenState extends State<ChatScreen> {
     }).catchError((error) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(error.toString()),
-        backgroundColor: Theme.of(context).errorColor,
+        backgroundColor: Theme.of(context).colorScheme.error,
       ));
     });
   }
@@ -77,7 +79,7 @@ class _ChatScreenState extends State<ChatScreen> {
     if (url == null) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: const Text("Sorry! We were unable send your image"),
-        backgroundColor: Theme.of(context).errorColor,
+        backgroundColor: Theme.of(context).colorScheme.error,
       ));
       return;
     } else {
@@ -98,7 +100,7 @@ class _ChatScreenState extends State<ChatScreen> {
     }).catchError((error) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(error.toString()),
-        backgroundColor: Theme.of(context).errorColor,
+        backgroundColor: Theme.of(context).colorScheme.error,
       ));
     });
   }
@@ -167,13 +169,13 @@ class _ChatScreenState extends State<ChatScreen> {
     } on PlatformException {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: const Text("There was some error in fetching your image"),
-        backgroundColor: Theme.of(context).errorColor,
+        backgroundColor: Theme.of(context).colorScheme.error,
       ));
     }
   }
 
   void cropImage(XFile file) async {
-    File? croppedImage = await ImageCropper().cropImage(sourcePath: file.path);
+    File? croppedImage = (await ImageCropper().cropImage(sourcePath: file.path)) as File?;
 
     if (croppedImage != null) {
       uploadImage(croppedImage);
@@ -198,7 +200,7 @@ class _ChatScreenState extends State<ChatScreen> {
     } on PlatformException {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: const Text("There was some error in fetching your image"),
-        backgroundColor: Theme.of(context).errorColor,
+        backgroundColor: Theme.of(context).colorScheme.error,
       ));
     }
   }
@@ -231,6 +233,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
           if (snapshot.hasData) {
             if (snapshot.data!.docs.isNotEmpty) {
+              // ignore: todo
               //TODO: SEE an error is occurring in terminal
               chatDocumentId = snapshot.data!.docs.single.id;
             } else {

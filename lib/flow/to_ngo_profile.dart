@@ -1,5 +1,6 @@
 import 'package:after_layout/after_layout.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ngo/homepage/components/ngo_profile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -33,15 +34,32 @@ class _ToNgoProfileState extends State<ToNgoProfile> with AfterLayoutMixin {
 
     var docRef = ngodoc.docs.single.data();
     var docid = ngodoc.docs.single.id;
-    print(
+    if (kDebugMode) {
+      print(
         '-------------------------------------------------------------------');
-    print(docRef['name']);
-    print(docRef["address"]);
-    print(docRef["email"]);
-    print(docRef["mobile"]);
-    print(docRef["worksIn"]);
-    print(docid);
-    print('------------------------------------------------------------------');
+    }
+    if (kDebugMode) {
+      print(docRef['name']);
+    }
+    if (kDebugMode) {
+      print(docRef["address"]);
+    }
+    if (kDebugMode) {
+      print(docRef["email"]);
+    }
+    if (kDebugMode) {
+      print(docRef["mobile"]);
+    }
+    if (kDebugMode) {
+      print(docRef["worksIn"]);
+    }
+    if (kDebugMode) {
+      print(docid);
+    }
+    if (kDebugMode) {
+      print('------------------------------------------------------------------');
+    }
+    // ignore: use_build_context_synchronously
     Navigator.push(
       context,
       MaterialPageRoute(

@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +19,7 @@ class _UserProfileState extends State<UserProfile> {
   String currentUID = FirebaseAuth.instance.currentUser!.uid;
   @override
   Widget build(BuildContext context) {
-    final _size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -61,8 +63,8 @@ class _UserProfileState extends State<UserProfile> {
                   alignment: Alignment.center,
                   children: [
                     Container(
-                      width: _size.width,
-                      height: _size.height,
+                      width: size.width,
+                      height: size.height,
                       color: const Color(0xffF7EBE1),
                       child: Padding(
                         padding: const EdgeInsets.only(top: 20),
@@ -128,10 +130,10 @@ class _UserProfileState extends State<UserProfile> {
                       ),
                     ),
                     Positioned(
-                      top: _size.height / 3.5,
+                      top: size.height / 3.5,
                       child: Container(
-                        width: _size.width,
-                        height: _size.height,
+                        width: size.width,
+                        height: size.height,
                         decoration: const BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.only(

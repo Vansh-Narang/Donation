@@ -1,8 +1,11 @@
+// ignore_for_file: use_build_context_synchronously, no_leading_underscores_for_local_identifiers
+
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ngo/models/donation_modal.dart';
@@ -23,46 +26,63 @@ class _SubmitLoadingScreenState extends State<SubmitLoadingScreen> {
   List<String> imageUrls = [];
 
   Future<String?> uploadImageToDatabase(File image) async {
-    print('-------@@@@@@@@@   In uploadImageToDatabase');
+    if (kDebugMode) {
+      print('-------@@@@@@@@@   In uploadImageToDatabase');
+    }
     try {
       _storageReference = FirebaseStorage.instance
           .ref()
           .child('Donations')
           .child('${DateTime.now().microsecondsSinceEpoch}');
-      print(
+      if (kDebugMode) {
+        print(
           '-------@@@@@@@@@##### #####   After instance --- In uploadImageToDatabase');
+      }
       UploadTask _storageUploadTask = _storageReference.putFile(image);
-      print('-------@@@@@@@@@##################   In uploadImageToDatabase');
+      if (kDebugMode) {
+        print('-------@@@@@@@@@##################   In uploadImageToDatabase');
+      }
       TaskSnapshot snapshot = await _storageUploadTask;
       String imageURL = await snapshot.ref.getDownloadURL();
-      print(
+      if (kDebugMode) {
+        print(
           '-------@@@@@@@@@################^^^^^^^^^^^^^^^^^##   In uploadImageToDatabase');
+      }
       return imageURL;
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: const Text('Sorry! We were unable send your image'),
-        backgroundColor: Theme.of(context).errorColor,
+        backgroundColor: Theme.of(context).colorScheme.error,
       ));
       return null;
     }
   }
 
+// ignore: todo
 // TODO: alert, circularprogressindicator, navigator
   Future<bool> uploadImage(List<File> images) async {
-    print('----------#xyzabc333333333333');
+    if (kDebugMode) {
+      print('----------#xyzabc333333333333');
+    }
     for (int i = 0; i < images.length; i++) {
-      print('----------#xyzabc44444444444$i');
+      if (kDebugMode) {
+        print('----------#xyzabc44444444444$i');
+      }
       String? url = await uploadImageToDatabase(images[i]);
       if (url == null) {
-        print('----------#xyzabc555555555     <<<<<<<--------------------');
+        if (kDebugMode) {
+          print('----------#xyzabc555555555     <<<<<<<--------------------');
+        }
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: const Text('Sorry! We were unable send your image'),
-          backgroundColor: Theme.of(context).errorColor,
+          backgroundColor: Theme.of(context).colorScheme.error,
         ));
         return false;
       } else {
-        print(
+        if (kDebugMode) {
+          print(
             '----------#xyzabc66666666     <<<<<<<<<<<<<------------------------');
+        }
         imageUrls.add(url);
       }
     }
@@ -70,9 +90,12 @@ class _SubmitLoadingScreenState extends State<SubmitLoadingScreen> {
   }
 
   imagesUploader() {}
+  // ignore: todo
   //TODO: Delete images in case any of the image url returns null
   Future<void> submitRequest(SubmitPageProvider manager) async {
-    print('----------Starting submit');
+    if (kDebugMode) {
+      print('----------Starting submit');
+    }
     DocumentReference<Map<String, dynamic>>
         donationCollectionDocumentReference =
         FirebaseFirestore.instance.collection('donations').doc();
@@ -89,23 +112,29 @@ class _SubmitLoadingScreenState extends State<SubmitLoadingScreen> {
 
     return FirebaseFirestore.instance.runTransaction((transaction) async {
       for (int i = 0; i < images.length; i++) {
-        Reference _storageReference = picturesUploadFirebaseStorageCollection
+        Reference storageReference = picturesUploadFirebaseStorageCollection
             .child('${DateTime.now().microsecondsSinceEpoch}');
-        print(
+        if (kDebugMode) {
+          print(
             '-------@@@@@@@@@##### #####   After instance --- In uploadImageToDatabase');
-        UploadTask _storageUploadTask = _storageReference.putFile(images[i]);
-        print('-------@@@@@@@@@##################   In uploadImageToDatabase');
+        }
+        UploadTask _storageUploadTask = storageReference.putFile(images[i]);
+        if (kDebugMode) {
+          print('-------@@@@@@@@@##################   In uploadImageToDatabase');
+        }
         TaskSnapshot snapshot = await _storageUploadTask;
         String imageURL = await snapshot.ref.getDownloadURL().catchError((err) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: const Text(
                 'There was some problem in uploading the images! Please try again'),
-            backgroundColor: Theme.of(context).errorColor,
+            backgroundColor: Theme.of(context).colorScheme.error,
           ));
           return err.toString();
         });
-        print(
+        if (kDebugMode) {
+          print(
             '-------@@@@@@@@@################^^^^^^^^^^^^^^^^^##   In uploadImageToDatabase');
+        }
         imageUrls.add(imageURL);
       }
 
@@ -125,7 +154,9 @@ class _SubmitLoadingScreenState extends State<SubmitLoadingScreen> {
         'donorRequestId': userDonationRequestsCollectionDocumentReference.id
       });
 
-      print('In transaction ---starting other');
+      if (kDebugMode) {
+        print('In transaction ---starting other');
+      }
       transaction.set(userDonationRequestsCollectionDocumentReference, {
         'donationCollectionDocumentId': donationCollectionDocumentReference.id,
         'donatedItems': widget.donation.items,
@@ -152,9 +183,9 @@ class _SubmitLoadingScreenState extends State<SubmitLoadingScreen> {
       Navigator.pushReplacementNamed(context, '/category');
     }).catchError((err) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('${err.toString()}'),
+        content: Text(err.toString()),
         // content: Text('There was some error in submitting your request'),
-        backgroundColor: Theme.of(context).errorColor,
+        backgroundColor: Theme.of(context).colorScheme.error,
       ));
     });
 

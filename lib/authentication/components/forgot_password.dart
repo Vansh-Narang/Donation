@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -28,7 +30,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
 
   @override
   Widget build(BuildContext context) {
-    final _size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: AppTheme.background,
       appBar: AppBar(
@@ -76,8 +78,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         ),
                         _pageState == state.done
                             ? SizedBox(
-                                height: _size.height / 5,
-                                width: _size.width,
+                                height: size.height / 5,
+                                width: size.width,
                                 child: SvgPicture.asset(
                                   'assets/authentication/email_sent.svg',
                                 ),
@@ -134,12 +136,12 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                             }
                           },
                           color: const Color(0xff132137),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5),
+                          ),
                           child: Text(
                             _pageState == state.done ? "Back" : "Send",
                             style: const TextStyle(color: Colors.white),
-                          ),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
                           ),
                         ),
                         const SizedBox(

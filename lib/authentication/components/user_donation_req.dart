@@ -20,9 +20,10 @@ class _AllDonationRequestsState extends State<AllDonationRequests> {
   late DonationRequestsCardProvider provider;
   @override
   void initState() {
+    // ignore: todo
     // TODO: implement initState
     super.initState();
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       provider =
           Provider.of<DonationRequestsCardProvider>(context, listen: false);
     });
@@ -30,6 +31,7 @@ class _AllDonationRequestsState extends State<AllDonationRequests> {
 
   @override
   void dispose() {
+    // ignore: todo
     // TODO: implement dispose
     super.dispose();
   }

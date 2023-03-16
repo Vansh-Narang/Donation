@@ -1,6 +1,9 @@
+// ignore_for_file: camel_case_types, body_might_complete_normally_catch_error, use_build_context_synchronously
+
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -47,6 +50,7 @@ class _NgoProfileState extends State<NgoProfile> {
 
   @override
   void initState() {
+    super.initState();
     workin = widget.worksIn.split(',');
   }
 
@@ -113,7 +117,7 @@ class _NgoProfileState extends State<NgoProfile> {
     _viewstate = widget.permission;
     // String currentUID = Provider.of<String>(context);
     String currentUID = FirebaseAuth.instance.currentUser!.uid;
-    final _size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: const Text('NGO Profile'),
@@ -152,6 +156,7 @@ class _NgoProfileState extends State<NgoProfile> {
                   child: profilePic == null
                       ? CircleAvatar(
                           backgroundColor: AppTheme.background,
+                          radius: 40,
                           child: Icon(
                             _viewstate == mode.edit
                                 ? Icons.add_a_photo_outlined
@@ -159,7 +164,6 @@ class _NgoProfileState extends State<NgoProfile> {
                             color: AppTheme.grey,
                             size: 40,
                           ),
-                          radius: 40,
                         )
                       : _viewstate == mode.edit
                           ? Stack(
@@ -196,7 +200,7 @@ class _NgoProfileState extends State<NgoProfile> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      width: _size.width / 1.5,
+                      width: size.width / 1.5,
                       child: Text(
                         widget.name.toUpperCase(),
                         style: AppTheme.body1.copyWith(
@@ -337,11 +341,12 @@ class _NgoProfileState extends State<NgoProfile> {
   }
 
   final String currentUserUid = FirebaseAuth.instance.currentUser!.uid;
-  late Reference _storageReference;
   List<String> imageUrls = [];
 
   Future<void> submitRequest() async {
-    print('----------Starting submit');
+    if (kDebugMode) {
+      print('----------Starting submit');
+    }
     // CollectionReference<Map<String, dynamic>>
     //     donationCollectionDocumentReference = FirebaseFirestore.instance
     //         .collection('NGO')
@@ -357,47 +362,59 @@ class _NgoProfileState extends State<NgoProfile> {
 
     return FirebaseFirestore.instance.runTransaction((transaction) async {
       for (int i = 0; i < workImages.length; i++) {
-        Reference _storageReference = picturesUploadFirebaseStorageCollection
+        Reference storageReference = picturesUploadFirebaseStorageCollection
             .child('${DateTime.now().microsecondsSinceEpoch}');
-        print(
+        if (kDebugMode) {
+          print(
             '-------@@@@@@@@@##### #####   After instance --- In uploadImageToDatabase');
-        UploadTask _storageUploadTask =
-            _storageReference.putFile(workImages[i]);
-        print('-------@@@@@@@@@##################   In uploadImageToDatabase');
-        TaskSnapshot snapshot = await _storageUploadTask;
+        }
+        UploadTask storageUploadTask =
+            storageReference.putFile(workImages[i]);
+        if (kDebugMode) {
+          print('-------@@@@@@@@@##################   In uploadImageToDatabase');
+        }
+        TaskSnapshot snapshot = await storageUploadTask;
         String imageURL = await snapshot.ref.getDownloadURL().catchError((err) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: const Text(
                 'There was some problem in uploading the images! Please try again'),
-            backgroundColor: Theme.of(context).errorColor,
+            backgroundColor: Theme.of(context).colorScheme.error,
           ));
           return err.toString();
         });
-        print(
+        if (kDebugMode) {
+          print(
             '-------@@@@@@@@@################^^^^^^^^^^^^^^^^^##   In uploadImageToDatabase');
+        }
         imageUrls.add(imageURL);
       }
 
       String? imageURL;
       if (profilePic != null) {
-        Reference _storageReference = picturesUploadFirebaseStorageCollection
+        Reference storageReference = picturesUploadFirebaseStorageCollection
             .child('${DateTime.now().microsecondsSinceEpoch}');
-        print(
+        if (kDebugMode) {
+          print(
             '-------@@@@@@@@@##### #####   After instance --- In uploadImageToDatabase');
-        TaskSnapshot _storageUploadTask =
-            await _storageReference.putFile(profilePic!).catchError((err) {
-          print('****** ------------->>>>>>>      ${err.toString()}');
+        }
+        TaskSnapshot storageUploadTask =
+            await storageReference.putFile(profilePic!).catchError((err) {
+          if (kDebugMode) {
+            print('****** ------------->>>>>>>      ${err.toString()}');
+          }
         });
-        print('-------@@@@@@@@@##################   In uploadImageToDatabase');
+        if (kDebugMode) {
+          print('-------@@@@@@@@@##################   In uploadImageToDatabase');
+        }
         // TaskSnapshot snapshot = await _storageUploadTask.catchError((err) {
         // print("!!!!!---------->>.     ${err.toString()}");
         // });
         imageURL =
-            await _storageUploadTask.ref.getDownloadURL().catchError((err) {
+            await storageUploadTask.ref.getDownloadURL().catchError((err) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: const Text(
                 'There was some problem in uploading the images! Please try again'),
-            backgroundColor: Theme.of(context).errorColor,
+            backgroundColor: Theme.of(context).colorScheme.error,
           ));
           return err.toString();
         });
@@ -419,16 +436,20 @@ class _NgoProfileState extends State<NgoProfile> {
       //   'donorRequestId': userDonationRequestsCollectionDocumentReference.id
       // });
 
-      print('In transaction ---starting other');
+      if (kDebugMode) {
+        print('In transaction ---starting other');
+      }
       transaction.update(userDonationRequestsCollectionDocumentReference,
           {'profileImage': imageURL, 'images': imageUrls});
     }).then((value) {
       Navigator.pop(context);
-      print('In then of transaction -----------------------');
+      if (kDebugMode) {
+        print('In then of transaction -----------------------');
+      }
     }).catchError((err) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: const Text('There was some in updating your data'),
-        backgroundColor: Theme.of(context).errorColor,
+        backgroundColor: Theme.of(context).colorScheme.error,
       ));
     });
   }
@@ -524,7 +545,7 @@ class _NgoProfileState extends State<NgoProfile> {
       );
 
   void cropImage(XFile file) async {
-    File? croppedImage = await ImageCropper().cropImage(sourcePath: file.path);
+    File? croppedImage = (await ImageCropper().cropImage(sourcePath: file.path)) as File?;
 
     if (croppedImage != null) {
       setState(() {
@@ -536,7 +557,7 @@ class _NgoProfileState extends State<NgoProfile> {
   }
 
   void cropWorkImage(XFile file) async {
-    File? croppedImage = await ImageCropper().cropImage(sourcePath: file.path);
+    File? croppedImage = (await ImageCropper().cropImage(sourcePath: file.path)) as File?;
 
     if (croppedImage != null) {
       setState(() {
