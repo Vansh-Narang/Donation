@@ -3,8 +3,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:ngo/apptheme.dart';
 import 'package:ngo/authentication/components/verify_ngo.dart';
+import 'package:ngo/authentication/functions/firebase.dart';
 
 import 'components/conditional_checkbox.dart';
 import 'components/set_password.dart';
@@ -295,7 +297,7 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                               const SizedBox(
                                 height: 20,
-                              )
+                              ),
                             ],
                           ),
                         if (_authMode == AuthMode.login)
@@ -449,6 +451,20 @@ class _LoginPageState extends State<LoginPage> {
                               const SizedBox(
                                 height: 20,
                               ),
+                              ElevatedButton(
+                                  onPressed: () async {
+                                    try {
+                                      await signupGoogle();
+                                    } catch (e) {
+                                      print(e);
+                                    }
+
+                                    Navigator.pushNamed(context, 'homepage');
+                                  },
+                                  child: Text(
+                                    "Sign In With Google",
+                                    style: AppTheme.body2,
+                                  ))
                             ],
                           ),
                         GestureDetector(
@@ -458,7 +474,7 @@ class _LoginPageState extends State<LoginPage> {
                                 ? const Text('Create an account?')
                                 : const Text('Already have an account?'),
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ),
@@ -470,4 +486,15 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
+}
+
+signupGoogle() async {
+  final GoogleSignInAccount? guser = await GoogleSignIn().signIn();
+
+  final GoogleSignInAuthentication gauth = await guser!.authentication;
+
+  final credential = GoogleAuthProvider.credential(
+      accessToken: gauth.accessToken, idToken: gauth.idToken);
+
+  return await FirebaseAuth.instance.signInWithCredential(credential);
 }

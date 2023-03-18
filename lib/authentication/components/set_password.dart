@@ -32,6 +32,7 @@ class _SetPasswordState extends State<SetPassword> {
   bool _hasPasswordOneNumber = false;
   bool _hasNoSpace = false;
   bool _isPasswordalpha = false;
+  final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();
   late AuthMode _authMode;
 
@@ -192,18 +193,22 @@ class _SetPasswordState extends State<SetPassword> {
                             _isPasswordalpha == true &&
                             _hasNoSpace == true &&
                             _hasPasswordOneNumber == true) {
-                          await createAccount(widget.email, _password.text)
-                              .then((value) async {
-                            User? user = FirebaseAuth.instance.currentUser;
-                            await FirebaseFirestore.instance
-                                .collection('users')
-                                .doc(user!.uid)
-                                .set({
-                              'uid': user.uid,
-                              'username': widget.username,
-                              'email': widget.email,
+                          try {
+                            await createAccount(_email.text, _password.text)
+                                .then((value) async {
+                              User? user = FirebaseAuth.instance.currentUser;
+                              await FirebaseFirestore.instance
+                                  .collection('users')
+                                  .doc(user!.uid)
+                                  .set({
+                                'uid': user.uid,
+                                'username': widget.username,
+                                'email': widget.email,
+                              });
                             });
-                          });
+                          } catch (e) {
+                            print(e);
+                          }
                           Navigator.pushReplacementNamed(context, '/verify');
                         }
                         if (_authMode == AuthMode.login) {
@@ -228,8 +233,9 @@ class _SetPasswordState extends State<SetPassword> {
                                     : ScaffoldMessenger.of(context)
                                         .showSnackBar(
                                         SnackBar(
-                                          backgroundColor:
-                                              Theme.of(context).colorScheme.error,
+                                          backgroundColor: Theme.of(context)
+                                              .colorScheme
+                                              .error,
                                           content: const Text(
                                               'Shared Preferences: UserType error'),
                                         ),

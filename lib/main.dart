@@ -58,7 +58,7 @@ Future main() async {
               textTheme: AppTheme.textTheme,
               platform: TargetPlatform.iOS,
             ),
-            initialRoute: '/splash',
+            initialRoute: '/login',
             routes: {
               '/splash': (context) => const Splash(),
               '/wrapper': (context) => const Wrapper(),

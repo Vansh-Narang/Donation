@@ -2,26 +2,46 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:ngo/homepage/home_page.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
 // Creating account
-Future<User?> createAccount(String email, String password) async {
+// Future<User?> createAccount(String email, String password) async {
+//   try {
+//     User? user = (await _auth.createUserWithEmailAndPassword(
+//             email: email, password: password))
+//         .user;
+//     return user;
+//   } on FirebaseAuthException catch (e) {
+//     if (e.code == 'weak-password') {
+//       Fluttertoast.showToast(msg: "Password Is Too Weak");
+//     } else if (e.code == 'email-already-in-use') {
+//       Fluttertoast.showToast(msg: "Account Already Exist For That Email");
+//     }
+//   }
+//   return null;
+// }
+Future createAccount(String emailAddress, String password) async {
   try {
-    User? user = (await _auth.createUserWithEmailAndPassword(
-            email: email, password: password))
-        .user;
-    return user;
+    UserCredential usercredential = await _auth.createUserWithEmailAndPassword(
+        email: emailAddress, password: password);
+    print(emailAddress);
   } on FirebaseAuthException catch (e) {
     if (e.code == 'weak-password') {
-      Fluttertoast.showToast(msg: "Password Is Too Weak");
+      print('The password provided is too weak.');
     } else if (e.code == 'email-already-in-use') {
-      Fluttertoast.showToast(msg: "Account Already Exist For That Email");
+      print('The account already exists for that email.');
     }
+  } catch (e) {
+    print(e.toString());
   }
-  return null;
 }
 
 // Email Login
