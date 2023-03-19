@@ -459,7 +459,7 @@ class _LoginPageState extends State<LoginPage> {
                                       print(e);
                                     }
 
-                                    Navigator.pushNamed(context, 'homepage');
+                                    Navigator.pushNamed(context, '/homepage');
                                   },
                                   child: Text(
                                     "Sign In With Google",
