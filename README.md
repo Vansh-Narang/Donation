@@ -10,7 +10,7 @@ As soon as one donor reached a new place he will just upload the location for th
 It will be get updated on our map where other donors can see the places.
 In this way more and more will get help.
 
-#Usage
+# Usage
 
 For donation you just need to create an account or log in to an existing one.
 Locate the new people to donate by looking at the places nearest to you.
