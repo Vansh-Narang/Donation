@@ -1,16 +1,18 @@
 # Danation
 
-A new Flutter project.
+Danation is an app establishing connection between the homeless people and the donor.
 
-## Getting Started
+# Features
 
-This project is a starting point for a Flutter application.
+Our App Danation will help donors to reach more and more people by seeing the location of new orphans, Old age homes and the needy homeless people.
 
-A few resources to get you started if this is your first Flutter project:
+As soon as one donor reached a new place he will just upload the location for the same.
+It will be get updated on our map where other donors can see the places.
+In this way more and more will get help.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+#Usage
+
+For donation you just need to create an account or log in to an existing one.
+Locate the new people to donate by looking at the places nearest to you.
+
