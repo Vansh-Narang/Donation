@@ -20,7 +20,7 @@ Locate the new people to donate by looking at the places nearest to you.
 
 If you have any questions or concerns regarding the platform, feel free to contact me at vanshnarang49906@gmail.com
 
-#Some Glimpse of Our App
+#Glimpse 
 
 ![WhatsApp Image 2023-03-19 at 10 10 40 AM](https://user-images.githubusercontent.com/102366482/226196113-532ebf38-2117-4ec3-bd7c-2a84f329de4b.jpeg)
 ![WhatsApp Image 2023-03-18 at 1 27 13 PM](https://user-images.githubusercontent.com/102366482/226196118-eb0aa177-f7b2-40e2-8058-69b5a8370529.jpeg)
